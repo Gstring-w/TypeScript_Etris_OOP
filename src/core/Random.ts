@@ -4,6 +4,7 @@
 
 import { shap } from "../config/square_group";
 import { Point } from "../type/type";
+import { arr } from "./SquareGroupSub";
 export class Random {
   private static _shap: any[] = [];
   private static init() {
@@ -30,5 +31,9 @@ export class Random {
     return `rgb(${Random.random(255)},${Random.random(255)},${Random.random(
       255
     )})`;
+  }
+
+  static number(n: number): number {
+    return Random.random(n);
   }
 }
