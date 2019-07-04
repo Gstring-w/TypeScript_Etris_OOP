@@ -2,7 +2,7 @@
  * 小方块类
  */
 
-import { Point, IViwer } from "./type";
+import { Point, IViwer } from "../type/type";
 
 export class Square {
   private _point: Point;

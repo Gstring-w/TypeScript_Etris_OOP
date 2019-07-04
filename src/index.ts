@@ -1,29 +1,20 @@
 import { Square } from "./core/Square";
-import { IViwer, Point } from "./core/type";
+import { ViewerDom } from "./viewer/Viewer";
+import Shape from "./config/square_group";
+import { SquareGroup } from "./core/SquareGroup";
 
-const s = new Square({ x: 0, y: 0 }, "red");
+// const s = new Square({ x: 0, y: 0 }, "red");
 
-class ViewerConsole implements IViwer {
-  constructor(public square: Square) {
-    this.square = square;
-  }
-  show(): void {
-    console.log(
-      `坐标为（${this.square.point.x},${this.square.point.x}）,颜色为${
-        this.square.color
-      }`
-    );
-  }
-  remove(): void {
-    throw new Error("Method not implemented.");
-  }
-}
+// s.viewer = new ViewerDom(s);
+// s.viewer.show();
 
-s.viewer = new ViewerConsole(s);
-s.viewer.show();
+// s.point = {
+//   x: 10,
+//   y: 10
+// };
 
-s.point = {
-  x: 10,
-  y: 10
-};
-console.log(s.viewer);
+const newS = new SquareGroup(Shape.mountain, { x: 10, y: 10 }, "red");
+newS.squarePointGroup.forEach(item => {
+  item.square.viewer = new ViewerDom(item.square);
+  item.square.viewer.show();
+});
