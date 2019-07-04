@@ -1,9 +1,11 @@
+import { Point } from "../type/type";
+
 /**
  *
  * 形状数组
  */
 
-export default {
+export let shap: any = {
   //“山”字型
 
   mountain: [

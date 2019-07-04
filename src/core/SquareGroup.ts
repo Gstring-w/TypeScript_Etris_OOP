@@ -1,5 +1,6 @@
 import { Point, ISquareGroup } from "../type/type";
 import { Square } from "./Square";
+import { SquareMove } from "./SquareMove";
 
 /**
  * 形状类
@@ -8,10 +9,14 @@ import { Square } from "./Square";
 export class SquareGroup {
   private _squareAbsolutePointGroup: ISquareGroup[] = [];
   constructor(
-    private _squareRelativePointGroup: readonly Point[],
+    private _squareRelativePointGroup: Point[],
     private _point: Point,
     private _color: string
   ) {
+    if (!SquareMove.canIMove(_squareRelativePointGroup, _point)) {
+      console.log("位置无效！请前往'/config/viewer.ts'修改配置或修改初始位置");
+      return;
+    }
     this._point = _point;
     let square: Square;
     let point: Point;

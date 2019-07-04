@@ -21,3 +21,14 @@ export interface IViwer {
 export interface ISquareGroup {
   square: Square;
 }
+
+export interface Shap {
+  [index: number]: Point;
+}
+
+export enum Direction {
+  up = "up",
+  down = "down",
+  left = "left",
+  right = "right"
+}

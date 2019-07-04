@@ -5,7 +5,7 @@
 import { IViwer } from "../type/type";
 import { Square } from "../core/Square";
 import config from "../config/square_size";
-
+import viewer from "../config/viewer.config";
 export class ViewerDom implements IViwer {
   constructor(private _square: Square, private _container?: HTMLDivElement) {
     this._square = _square;
@@ -21,9 +21,14 @@ export class ViewerDom implements IViwer {
       const div = document.createElement("div");
       div.style.width = config.width + "px";
       div.style.height = config.heigth + "px";
+      div.style.boxSizing = "border-box";
       div.style.border = config.border;
       this._container = div;
-      document.body.append(this._container);
+      if (viewer.container) {
+        viewer.container.append(this._container);
+      } else {
+        document.body.append(this._container);
+      }
     }
 
     this._container.style.position = "absolute";
