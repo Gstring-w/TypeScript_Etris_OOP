@@ -1,22 +1,31 @@
-import { SquareMove } from "./core/SquareMove";
 import { ViewerDom } from "./viewer/Viewer";
-import { shap } from "./config/square_group";
-import { SquareGroup } from "./core/SquareGroup";
 import { GameInterface } from "./viewer/GameInterface";
 import { Random } from "./core/Random";
-import { hash, arr } from "./core/SquareGroupSub";
+import { arr } from "./core/SquareGroupSub";
+import { Point } from "./type/type";
+import { SquareGroup } from "./core/SquareGroup";
+// import { SquareMove } from "./core/SquareMove";
+
+function createSquare(point: Point): SquareGroup {
+  const s = new arr[(Random.number(arr.length))](point, Random.color());
+
+  s.squarePointGroup.forEach(item => {
+    item.square.viewer = new ViewerDom(item.square);
+    item.square.viewer.show();
+  });
+  return s;
+}
 
 GameInterface.init();
+GameInterface.start(createSquare);
 
-// const squareShap = shap[Random.shap()];
-// const s = new SquareGroup(squareShap, { x: 8, y: 3 }, Random.color());
+class CreateSquare {
+  private s: SquareGroup;
+  constructor(private _shap: Point[], point: Point) {
+    this.s = new arr[(Random.number(arr.length))](point, Random.color());
+  }
 
-const s = new arr[(Random.number(arr.length))]({ x: 8, y: 3 }, Random.color());
-s.squarePointGroup.forEach(item => {
-  item.square.viewer = new ViewerDom(item.square);
-  item.square.viewer.show();
-});
-
-document.onclick = () => {
-  s.rotate();
-};
+  // public excuse(){
+  //   SquareMove.move(this)
+  // }
+}

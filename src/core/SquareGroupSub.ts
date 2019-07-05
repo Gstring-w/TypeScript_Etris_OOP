@@ -10,18 +10,21 @@ class MountainShap extends SquareGroup {
   constructor(_point: Point, _color: string) {
     super(shap["mountain"], _point, _color);
   }
+  public shap: Point[] = shap["mountain"];
 }
 
 class SevenPositiveShap extends SquareGroup {
   constructor(_point: Point, _color: string) {
     super(shap["sevenPositive"], _point, _color);
   }
+  public shap: Point[] = shap["sevenPositive"];
 }
 
 class SevenPassiveShap extends SquareGroup {
   constructor(_point: Point, _color: string) {
     super(shap["sevenPassive"], _point, _color);
   }
+  public shap: Point[] = shap["sevenPassive"];
 }
 
 class FieldShap extends SquareGroup {
@@ -31,6 +34,7 @@ class FieldShap extends SquareGroup {
   public rotate() {
     return;
   }
+  public shap: Point[] = shap["field"];
 }
 
 class ZonePassiveShap extends SquareGroup {
@@ -41,6 +45,7 @@ class ZonePassiveShap extends SquareGroup {
     super.rotate();
     this.isClock = !this.isClock;
   }
+  public shap: Point[] = shap["zonePassive"];
 }
 
 class ZonePositiveShap extends SquareGroup {
@@ -51,6 +56,7 @@ class ZonePositiveShap extends SquareGroup {
     super.rotate();
     this.isClock = !this.isClock;
   }
+  public shap: Point[] = shap["zonePositive"];
 }
 
 class LongStringPositiveShap extends SquareGroup {
@@ -61,6 +67,7 @@ class LongStringPositiveShap extends SquareGroup {
     super.rotate();
     this.isClock = !this.isClock;
   }
+  public shap: Point[] = shap["longStringPositive"];
 }
 
 class LongStringPassiveShap extends SquareGroup {
@@ -71,6 +78,7 @@ class LongStringPassiveShap extends SquareGroup {
     super.rotate();
     this.isClock = !this.isClock;
   }
+  public shap: Point[] = shap["longStringPassive"];
 }
 class DotShap extends SquareGroup {
   constructor(_point: Point, _color: string) {
@@ -79,6 +87,7 @@ class DotShap extends SquareGroup {
   public rotate() {
     return;
   }
+  public shap: Point[] = shap["field"];
 }
 
 export const hash = {

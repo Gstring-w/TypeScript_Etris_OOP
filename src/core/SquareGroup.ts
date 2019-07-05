@@ -13,10 +13,10 @@ export class SquareGroup {
     private _point: Point,
     private _color: string
   ) {
-    if (!SquareMove.canIMove(_shap, _point)) {
-      console.log("位置无效！请前往'/config/viewer.ts'修改配置或修改初始位置");
-      return;
-    }
+    // if (!SquareMove.canIMove(_shap, _point)) {
+    //   console.log("位置无效！请前往'/config/viewer.ts'修改配置或修改初始位置");
+    //   return;
+    // }
     this._point = _point;
     let square: Square;
     let point: Point;
