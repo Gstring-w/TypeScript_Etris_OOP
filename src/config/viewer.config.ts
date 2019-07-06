@@ -1,5 +1,5 @@
 export default {
-  width: 20,
-  height: 30,
+  width: 9, //多少个格子
+  height: 12,
   container: document.getElementById("root")
 };

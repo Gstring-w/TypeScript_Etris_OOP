@@ -90,7 +90,7 @@ class DotShap extends SquareGroup {
   public shap: Point[] = shap["field"];
 }
 
-export const hash = {
+export const HashShapClass = {
   mountain: MountainShap,
   sevenPositive: SevenPositiveShap,
   sevenPassive: SevenPassiveShap,
@@ -101,15 +101,3 @@ export const hash = {
   longStringPassive: LongStringPassiveShap,
   dot: DotShap
 };
-
-export const arr = [
-  DotShap,
-  LongStringPassiveShap,
-  LongStringPositiveShap,
-  ZonePositiveShap,
-  ZonePassiveShap,
-  MountainShap,
-  SevenPositiveShap,
-  SevenPassiveShap,
-  FieldShap
-];

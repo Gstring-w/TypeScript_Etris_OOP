@@ -13,6 +13,11 @@ export interface IViwer {
   remove(): void;
 }
 
+// export interface IGame {
+//   start(cb?: Function): void;
+//   pause(cb?: Function): void;
+//   end(cb?: Function): void;
+// }
 // export interface ISize {
 //   width: number;
 //   height: number;
@@ -31,4 +36,7 @@ export enum Direction {
   down = "down",
   left = "left",
   right = "right"
+}
+export interface shapClass {
+  shap: Point[];
 }

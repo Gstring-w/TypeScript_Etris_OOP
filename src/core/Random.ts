@@ -1,39 +1,28 @@
 /**
- * 随机类，随机显示颜色，形状
+ * 处理配置文件，并随机抛出一个形状，颜色
  */
 
-import { shap } from "../config/square_group";
-import { Point } from "../type/type";
-import { arr } from "./SquareGroupSub";
+import { configShapEnum, configColor } from "../config/square_group";
+import { Shap } from "../type/type";
+
 export class Random {
-  private static _shap: any[] = [];
-  private static init() {
-    // console.log(new shap().field);
-    for (const key in shap) {
-      if (shap.hasOwnProperty(key)) {
-        Random._shap.push(key);
+  static shap(): string {
+    let arr: any[] = [];
+    for (const key in configShapEnum) {
+      if (configShapEnum.hasOwnProperty(key)) {
+        arr.push(key);
       }
     }
+    return arr[Math.floor(Math.random() * arr.length)];
   }
-
-  private static random(x: number): number {
-    return Math.floor(Math.random() * x);
-  }
-
-  static shap(): string {
-    Random.init();
-    let num: number = Random.random(Random._shap.length);
-    console.log(num);
-    return Random._shap[num];
-  }
-
   static color(): string {
-    return `rgb(${Random.random(255)},${Random.random(255)},${Random.random(
-      255
-    )})`;
-  }
-
-  static number(n: number): number {
-    return Random.random(n);
+    let arr: any[] = [];
+    for (const key in configColor) {
+      if (configColor.hasOwnProperty(key)) {
+        const element = configColor[key];
+        arr.push(element);
+      }
+    }
+    return arr[Math.floor(Math.random() * arr.length)];
   }
 }

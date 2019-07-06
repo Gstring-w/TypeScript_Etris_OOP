@@ -5,7 +5,7 @@ import { Point } from "../type/type";
  * 形状数组
  */
 
-export let shap: any = {
+export const shap: any = {
   //“山”字型
 
   mountain: [
@@ -165,3 +165,22 @@ export let shap: any = {
     }
   ]
 };
+
+export enum configShapEnum {
+  mountain = "mountain",
+  sevenPositive = "sevenPositive",
+  sevenPassive = "sevenPassive",
+  field = "field",
+  zonePassive = "zonePassive",
+  zonePositive = "zonePositive",
+  longStringPositive = "longStringPositive",
+  longStringPassive = "longStringPassive",
+  dot = "dot"
+}
+
+export enum configColor {
+  red = "red",
+  blue = "blue",
+  black = "black",
+  yellow = "yellow"
+}
