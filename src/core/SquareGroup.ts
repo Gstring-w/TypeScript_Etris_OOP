@@ -30,6 +30,10 @@ export class SquareGroup {
     });
   }
 
+  get shap() {
+    return this._shap;
+  }
+
   public get point() {
     return this._point;
   }

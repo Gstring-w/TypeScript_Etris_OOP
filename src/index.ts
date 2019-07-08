@@ -40,4 +40,4 @@ import { Game } from "./core/Game";
 // 游戏开始，游戏结束，游戏暂停， （游戏开始时，可以传入一个函数？该函数执行完游戏开始，）
 // 游戏积分
 
-Game.start();
+// Game.start();

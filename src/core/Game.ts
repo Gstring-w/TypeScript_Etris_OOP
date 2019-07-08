@@ -5,7 +5,7 @@
  */
 // import { SquareMove } from "./core/SquareMove";
 import { SquareGroup } from "./SquareGroup";
-import { Point, shapClass } from "../type/type";
+import { Point } from "../type/type";
 import { Random } from "./Random";
 import { HashShapClass } from "./SquareGroupSub";
 import viewerConfig from "../config/viewer.config";
@@ -14,15 +14,37 @@ import { SquareMove } from "./SquareMove";
 
 export class Game {
   private static _time: number | null = null;
-  private static current: SquareGroup = Game.createSquare({ x: 5, y: 3 });
-  private static next: SquareGroup = Game.createSquare(Game.caluPointNext());
+
+  private static _speed: number = 300;
+
+  private static current: SquareGroup;
+
+  private static next: SquareGroup = Game.createSquare({
+    x: viewerConfig.width + 3,
+    y: 4
+  });
+
   static start(cb?: Function) {
-    Game._time = window.setInterval(() => {
-      SquareMove.move(Game.current.shap, Game.current, {
-        x: Game.current.point.x,
-        y: Game.current.point.y + 1
+    var temp: boolean;
+    if (cb) {
+      cb();
+    }
+    if (this.current == undefined) {
+      this.switch();
+    }
+    this._time = window.setInterval(() => {
+      temp = SquareMove.move(this.current.shap, this.current, {
+        x: this.current.point.x,
+        y: this.current.point.y + 1
       });
-    }, 500);
+      if (temp == false) {
+        // 触底判断
+        clearInterval(this._time as number);
+        this.switch();
+        cb = typeof cb != "undefined" ? cb : undefined;
+        this.start(cb);
+      }
+    }, this._speed);
   }
 
   private static createSquare(point: Point) {
@@ -36,16 +58,26 @@ export class Game {
     return s;
   }
 
-  private static caluPointNext(): Point {
-    return { x: viewerConfig.width + 3, y: 3 };
-  }
-
   private static switch() {
-    Game.current = Game.next;
-    Game.current.point = {
-      x: 5,
-      y: 3
+    this.current = this.next;
+    var minY = 0;
+    this.next.shap.forEach(item => {
+      if (minY > item.y) minY = item.y;
+    });
+    var point: Point = {
+      x: Math.floor(viewerConfig.width / 2),
+      y: -minY
     };
-    Game.next = Game.createSquare(Game.caluPointNext());
+    if (!SquareMove.canIMove(this.current.shap, point)) {
+      // console.log(this._time);
+      // clearInterval(this._time);
+      console.log("game over!");
+      return;
+    }
+    this.current.point = {
+      x: Math.floor(viewerConfig.width / 2),
+      y: -minY
+    };
+    this.next = this.createSquare({ x: viewerConfig.width + 3, y: 4 });
   }
 }

@@ -14,6 +14,13 @@ function isDir(obj: any): obj is Direction {
 }
 
 export class SquareMove {
+  // 触底的方块(全部)
+
+  static soleSquareArr: Point[] = [];
+
+  // [] index下标对应列数，每个index上的值对应每个列上的方块y坐标
+  static soleSquare: number[] = new Array(viewer.width).fill(viewer.height);
+
   static canIMove(_shape: Point[], moveToPoint: Point): boolean {
     var _pointGroup: Point[] = [];
     _shape.forEach(item => {
@@ -26,7 +33,8 @@ export class SquareMove {
 
     if (
       _pointGroup.some(
-        p => p.x < 1 || p.x > viewer.width || p.y < 1 || p.y > viewer.height
+        p =>
+          p.x < 1 || p.x > viewer.width || p.y < 0 || p.y > this.soleSquare[p.x]
       )
     ) {
       return false;
@@ -34,38 +42,31 @@ export class SquareMove {
     return true;
   }
 
-  static move(_shape: Point[], groupOrDir: SquareGroup, moveToPoint: Point) {
+  static move(_shape: Point[], group: SquareGroup, moveToPoint: Point) {
     if (SquareMove.canIMove(_shape, moveToPoint)) {
-      groupOrDir.point = {
+      group.point = {
         x: moveToPoint.x,
         y: moveToPoint.y
       };
+      return true;
+    } else {
+      var tempSoleSquareArr: Point[];
+      tempSoleSquareArr = group.squarePointGroup.map(item => {
+        return item.square.point;
+      });
+      this.soleSquareArr.push(...tempSoleSquareArr);
+      this.filterSoleSquareArr();
+      return false;
     }
-    // } else {
-    //   console.log("移动位置无效！请前往'/config/viewer.ts'修改配置");
-    // }
-    // } else {
-    //   if (groupOrDir == Direction.down) {
-    //     moveToPoint = {
-    //       x: moveToPoint.x,
-    //       y: moveToPoint.y + 1
-    //     };
-    //   } else if (groupOrDir == Direction.left) {
-    //     moveToPoint = {
-    //       x: moveToPoint.x - 1,
-    //       y: moveToPoint.y
-    //     };
-    //   } else if (groupOrDir == Direction.right) {
-    //     moveToPoint = {
-    //       x: moveToPoint.x + 1,
-    //       y: moveToPoint.y
-    //     };
-    //   } else {
-    //     moveToPoint = {
-    //       x: moveToPoint.x,
-    //       y: moveToPoint.y - 1
-    //     };
-    //   }
-    // }
+  }
+
+  //判断是否能下落
+  static filterSoleSquareArr() {
+    this.soleSquareArr.forEach(item => {
+      if (this.soleSquare[item.x] >= item.y) {
+        this.soleSquare[item.x] = item.y - 1;
+      }
+    });
+    this.soleSquareArr = []; // 清零 防止数组过大 导致页面卡顿
   }
 }
