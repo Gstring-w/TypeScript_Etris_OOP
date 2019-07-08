@@ -72,6 +72,7 @@ export class SquareGroup {
   }
 
   public rotate() {
+    var temp = this._shap;
     this._shap = this.calRotatePoint();
     if (
       SquareMove.canIMove(this._shap, {
@@ -84,6 +85,7 @@ export class SquareGroup {
         y: this.point.y
       };
     } else {
+      this._shap = temp;
       console.log("该位置不能变形");
     }
   }

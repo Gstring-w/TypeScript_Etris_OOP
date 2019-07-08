@@ -40,3 +40,9 @@ export enum Direction {
 export interface shapClass {
   shap: Point[];
 }
+
+export enum GameStaus {
+  pause = "pause",
+  starting = "starting",
+  end = "end"
+}

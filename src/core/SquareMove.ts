@@ -1,6 +1,7 @@
 import { Point, Direction } from "../type/type";
 import viewer from "../config/viewer.config";
 import { SquareGroup } from "./SquareGroup";
+import { Square } from "./Square";
 /**
  * 关于移动的判断
  */
@@ -15,8 +16,8 @@ function isDir(obj: any): obj is Direction {
 
 export class SquareMove {
   // 触底的方块(全部)
-
-  static soleSquareArr: Point[] = [];
+  // static allSoleSquare: Square[] = [];
+  static soleSquareFilterArr: Point[] = [];
 
   // [] index下标对应列数，每个index上的值对应每个列上的方块y坐标
   static soleSquare: number[] = new Array(viewer.width).fill(viewer.height);
@@ -34,7 +35,10 @@ export class SquareMove {
     if (
       _pointGroup.some(
         p =>
-          p.x < 1 || p.x > viewer.width || p.y < 0 || p.y > this.soleSquare[p.x]
+          p.x < 0 ||
+          p.x > viewer.width - 1 ||
+          p.y < 0 ||
+          p.y > this.soleSquare[p.x]
       )
     ) {
       return false;
@@ -50,23 +54,33 @@ export class SquareMove {
       };
       return true;
     } else {
-      var tempSoleSquareArr: Point[];
-      tempSoleSquareArr = group.squarePointGroup.map(item => {
-        return item.square.point;
+      var tempSoleSquareArr: Point[] = [];
+
+      group.point = {
+        x: group.point.x,
+        y: group.point.y
+      };
+
+      group.squarePointGroup.forEach(item => {
+        tempSoleSquareArr.push(item.square.point);
       });
-      this.soleSquareArr.push(...tempSoleSquareArr);
+
+      this.soleSquareFilterArr.push(...tempSoleSquareArr);
+
       this.filterSoleSquareArr();
       return false;
     }
   }
 
   //判断是否能下落
-  static filterSoleSquareArr() {
-    this.soleSquareArr.forEach(item => {
+  private static filterSoleSquareArr() {
+    this.soleSquareFilterArr.forEach(item => {
       if (this.soleSquare[item.x] >= item.y) {
         this.soleSquare[item.x] = item.y - 1;
       }
     });
-    this.soleSquareArr = []; // 清零 防止数组过大 导致页面卡顿
+    this.soleSquareFilterArr = []; // 清零 防止数组过大 导致页面卡顿
   }
+
+  // this.allSoleSquare = this.allSoleSquare.filter(s => s.point.y != i);
 }

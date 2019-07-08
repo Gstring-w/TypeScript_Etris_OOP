@@ -25,6 +25,9 @@ export class ViewerDom implements IViwer {
       div.style.border = config.border;
       this._container = div;
       if (viewer.container) {
+        viewer.container.style.width = `${viewer.width * config.width}px`;
+        viewer.container.style.height = `${config.heigth *
+          (viewer.height + 1)}px`;
         viewer.container.append(this._container);
       } else {
         document.body.append(this._container);
@@ -37,8 +40,8 @@ export class ViewerDom implements IViwer {
     this._container.style.backgroundColor = this._square.color;
   }
   remove(): void {
-    if (this._container) {
-      document.body.removeChild(this._container);
+    if (this._container && viewer.container) {
+      viewer.container.removeChild(this._container);
       this._isShow = false;
     }
   }
